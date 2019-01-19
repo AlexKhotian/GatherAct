@@ -1,0 +1,10 @@
+version: '3'
+services:
+  back:
+    image: gatheract-back:0.1
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7

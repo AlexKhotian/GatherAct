@@ -1,9 +1,8 @@
 package main
 
-import "github.com/AlexKhotian/GatherAct/back/serverhandling"
+import "github.com/AlexKhotian/GatherAct/serverhandling"
 
 func main() {
-	server := new(serverhandling.ServerHandler)
-	server.RunServer()
+	serverhandling.RunServer()
 }
 
