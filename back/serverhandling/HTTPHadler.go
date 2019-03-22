@@ -3,16 +3,21 @@ package serverhandling
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
+
+	"github.com/AlexKhotian/GatherAct/functions"
 )
 
 // HTTPHandler handles http requests
 type HTTPHandler struct {
+	activityHandler *functions.ActivityHandler
 }
 
 // InitHandler sets up routes
-func (handler *HTTPHandler) InitHandler() {
+func (handler *HTTPHandler) InitHandler(activityHandler *functions.ActivityHandler) {
+	handler.activityHandler = activityHandler
 	r := mux.NewRouter()
 	r.HandleFunc("/changeactivity/{activityid}/{changetype}/{activitydiff}", handler.activityChange).Methods("PUT")
 	r.HandleFunc("/getallactivities", handler.getAllActivities).Methods("GET")
@@ -23,7 +28,7 @@ func (handler *HTTPHandler) InitHandler() {
 
 func (handler *HTTPHandler) activityChange(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	log.Println(vars["activityid"], vars["changetype"], vars["activitydiff"])
+	handler.activityHandler.ChangeActivity(1, strconv.Atoi(vars["activitydiff"]), strconv.Atoi(vars["activityid"]))
 }
 
 func (handler *HTTPHandler) getAllActivities(w http.ResponseWriter, r *http.Request) {
