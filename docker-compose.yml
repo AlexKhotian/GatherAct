@@ -1,10 +1,23 @@
 version: '3'
 services:
+  db:
+    image: mysql:5.7
+    networks:
+      - db_net
+    environment:
+      MYSQL_ROOT_PASSWORD: 'kukush'
+      MYSQL_DATABASE: 'test_db'
+      MYSQL_USER: 'docker'
+      MYSQL_PASSWORD: 'docker'
+    ports:
+      - "3306:3306"
   back:
     image: gatheract-back:0.1
     ports:
       - "80:80"
     depends_on:
       - db
-  db:
-    image: mysql:5.7
+    networks:
+      - db_net
+networks: 
+  db_net: {}

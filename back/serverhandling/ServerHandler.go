@@ -7,7 +7,7 @@ import "log"
 func RunServer() {
 	log.Println("Starting server")
 
-	activityHandler := functions.NewActivityHandler("root:admin@tcp(database:3306)/db")
+	activityHandler := functions.NewActivityHandler("root:kukush@tcp(db:3306)/test_db")
 
 	httpHandler := new(HTTPHandler)
 	httpHandler.InitHandler(activityHandler)
